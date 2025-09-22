@@ -293,30 +293,6 @@
                 <span>{{$t('version')}} :</span>
                 <span>v1.5.0</span>
               </div>
-              <div class="concerning-item">
-                <span>{{$t('community')}} : </span>
-                <el-button @click="jump('https://github.com/eoao/cloud-mail')">
-                  Github
-                  <template #icon>
-                    <Icon icon="codicon:github-inverted" width="22" height="22" />
-                  </template>
-                </el-button>
-                <el-button @click="jump('https://t.me/cloud_mail_tg')">
-                  Telegram
-                  <template #icon>
-                    <Icon icon="logos:telegram" width="30" height="30"/>
-                  </template>
-                </el-button>
-              </div>
-              <div class="concerning-item">
-                <span>{{$t('support')}} : </span>
-                <el-button @click="jump('https://support.skymail.ink')" >
-                  {{t('supportDesc')}}
-                  <template #icon>
-                    <Icon color="#79D6B5" icon="simple-icons:buymeacoffee" width="20" height="20" />
-                  </template>
-                </el-button>
-              </div>
             </div>
           </div>
         </div>
