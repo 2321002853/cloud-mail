@@ -286,15 +286,6 @@
             </div>
           </div>
 
-          <div class="settings-card about">
-            <div class="card-title">{{$t('about')}}</div>
-            <div class="card-content">
-              <div class="concerning-item">
-                <span>{{$t('version')}} :</span>
-                <span>v1.5.0</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
