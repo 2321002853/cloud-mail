@@ -2,7 +2,7 @@
   <el-scrollbar class="scroll">
     <div>
       <div class="title" >
-        <Icon icon="mdi:email-outline" width="24" height="24" />
+        <Icon icon="mdi:cloud-outline" width="24" height="24" />
         <div>{{settingStore.settings.title}}</div>
       </div>
       <el-menu :collapse="false" text-color="#fff" active-text-color="#fff" style="margin-top: 10px">
@@ -39,7 +39,7 @@
           <Icon icon="fluent:data-pie-20-regular" width="24" height="24" />
           <span class="menu-name" style="margin-left: 13px">{{$t('analytics')}}</span>
         </el-menu-item>
-        <el-menu-item @click="router.push({name: 'user'})" index="setting" v-perm="'user:query'"
+        <el-menu-item @click="router.push({name: 'user'})" index="user" v-perm="'user:query'"
                       :class="route.meta.name === 'user' ? 'choose-item' : ''">
           <Icon icon="si:user-alt-2-line" width="20" height="20" />
           <span class="menu-name" style="margin-left: 16px">{{$t('allUsers')}}</span>
@@ -49,7 +49,7 @@
           <Icon icon="fluent:mail-list-28-regular" width="22" height="22" />
           <span class="menu-name" style="margin-left: 15px">{{$t('allMail')}}</span>
         </el-menu-item>
-        <el-menu-item @click="router.push({name: 'role'})" index="setting" v-perm="'role:query'"
+        <el-menu-item @click="router.push({name: 'role'})" index="role" v-perm="'role:query'"
                       :class="route.meta.name === 'role' ? 'choose-item' : ''">
           <Icon icon="fluent:lock-closed-16-regular" width="22" height="22" />
           <span class="menu-name" style="margin-left: 15px">{{$t('permissions')}}</span>
@@ -96,13 +96,13 @@ const route = useRoute();
   color: #ffffff;
   background: linear-gradient(135deg, #1890ff, #3a80dd);
   transition: all 0.3s ease;
-  max-width: 240px;
+  max-width: 188px;
   padding: 0 10px;
   > div {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: calc(240px - 20px - 30px);
+    max-width: calc(188px - 20px - 30px);
   }
 
   :deep(.el-icon) {
@@ -165,7 +165,7 @@ const route = useRoute();
 
 .el-menu {
   border-right: 0;
-  width: 260px;
+  width: 208px;
 }
 
 :deep(.el-divider__text) {
