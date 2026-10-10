@@ -179,6 +179,11 @@ function removeLoading() {
         return;
     }
 
+    if (typeof window.finishAppLoading === 'function') {
+        window.finishAppLoading(() => doc.remove());
+        return;
+    }
+
     doc.remove()
 }
 

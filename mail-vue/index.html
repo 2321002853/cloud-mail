@@ -31,15 +31,66 @@
   }
   #loading-first {
     position: fixed;
-    left: 0;
     top: 0;
-    height: 100%;
-    width: 100%;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 500;
-    background: var(--el-bg-color);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 55% at 12% 18%, rgba(214, 247, 239, 0.95), transparent 58%),
+      radial-gradient(ellipse 55% 45% at 88% 82%, rgba(14, 122, 114, 0.55), transparent 62%),
+      radial-gradient(ellipse 40% 32% at 72% 12%, rgba(255, 255, 255, 0.55), transparent 70%),
+      linear-gradient(155deg, #e7faf4 0%, #8fd9cc 46%, #168f86 100%);
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .loader-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(2px);
+  }
+
+  .loader-orb-a {
+    width: 280px;
+    height: 280px;
+    left: -40px;
+    top: 12%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(156, 214, 202, 0.05) 70%);
+    animation: loader-drift 7s ease-in-out infinite alternate;
+  }
+
+  .loader-orb-b {
+    width: 360px;
+    height: 360px;
+    right: -80px;
+    bottom: -40px;
+    background: radial-gradient(circle, rgba(20, 152, 143, 0.45) 0%, rgba(20, 152, 143, 0) 68%);
+    animation: loader-drift 9s ease-in-out infinite alternate-reverse;
+  }
+
+  .loader-orb-c {
+    width: 180px;
+    height: 180px;
+    right: 18%;
+    top: 16%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 70%);
+    animation: loader-drift 6s ease-in-out infinite alternate;
+  }
+
+  #loading-first.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #loading-first.fade-out .loader-content {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.98);
   }
 
   .loading-hide {
@@ -47,93 +98,149 @@
     opacity: 0;
   }
 
-  .loading-icon {
-    display: inline-flex;
+  .loader-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #143833;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 2px;
+    gap: 22px;
+    width: min(420px, calc(100vw - 48px));
+    padding: 36px 36px 30px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    animation: loader-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .loading-image {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
+  .loader-ring {
+    width: 72px;
+    height: 72px;
+    border: 2px solid rgba(16, 88, 80, 0.16);
+    border-top: 2px solid #14988f;
+    border-radius: 50%;
+    animation: loader-spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    box-shadow: 0 0 24px rgba(20, 152, 143, 0.18);
   }
 
-  .loading-progress {
-    position: relative;
-    width: 64px;
+  .loader-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #143833;
+  }
+
+  .loader-progress-bar {
+    width: 220px;
+    max-width: 100%;
     height: 4px;
+    background: rgba(156, 214, 202, 0.46);
+    border-radius: 4px;
     overflow: hidden;
-    border-radius: 999px;
-    background: rgba(64, 158, 255, 0.18);
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(16, 88, 80, 0.12);
   }
 
-  .loading-progress::before {
-    content: "";
+  .loader-progress-fill {
     position: absolute;
+    top: 0;
     left: 0;
-    top: 0;
-    width: 100%;
     height: 100%;
-    border-radius: inherit;
-    background: #409EFF;
-    transform: scaleX(0);
-    transform-origin: left center;
-    animation: loading-progress-grow 2.4s linear forwards;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(156, 214, 202, 0.95), #14988f);
+    transition: width 0.1s linear;
   }
 
-  .loading-progress::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 24px;
-    height: 100%;
-    border-radius: inherit;
-    background: rgba(64, 158, 255, 0.45);
-    filter: blur(4px);
-    transform: translateX(-24px);
-    animation: loading-progress-peg 2.4s linear forwards;
+  .loader-percentage {
+    font-size: 14px;
+    color: #3d5c58;
+    letter-spacing: 1px;
+    font-variant-numeric: tabular-nums;
   }
 
-  .loading-complete .loading-progress::before {
-    animation: none;
-    transform: scaleX(1);
-    transition: transform 200ms linear;
-  }
-
-  .loading-complete .loading-progress::after {
-    animation: none;
-    transform: translateX(60px);
-    transition: transform 200ms linear;
-  }
-
-  @keyframes loading-progress-grow {
-    0% {
-      transform: scaleX(0);
+  @keyframes loader-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
     }
-    100% {
-      transform: scaleX(1);
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 
-  @keyframes loading-progress-peg {
-    0% {
-      transform: translateX(-24px);
-    }
-    100% {
-      transform: translateX(60px);
-    }
+  @keyframes loader-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes loader-drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(24px, -18px, 0) scale(1.08); }
   }
 </style>
 <body>
-<div id="loading-first" >
-  <div class="loading-icon">
-    <img class="loading-image" src="/mail-pwa.png" alt="Cloud Mail">
-    <div class="loading-progress" aria-hidden="true"></div>
+<div id="loading-first">
+  <div class="loader-orb loader-orb-a"></div>
+  <div class="loader-orb loader-orb-b"></div>
+  <div class="loader-orb loader-orb-c"></div>
+  <div class="loader-content">
+    <div class="loader-ring"></div>
+    <div class="loader-title" id="loader-title">正在加载...</div>
+    <div class="loader-progress-bar">
+      <div class="loader-progress-fill" id="loader-progress-fill"></div>
+    </div>
+    <div class="loader-percentage" id="loader-progress-text">0%</div>
   </div>
 </div>
+<script>
+  (function () {
+    const preloader = document.getElementById('loading-first');
+    const progressFill = document.getElementById('loader-progress-fill');
+    const progressText = document.getElementById('loader-progress-text');
+    const title = document.getElementById('loader-title');
+    if (title && !(navigator.language || '').toLowerCase().startsWith('zh')) {
+      title.textContent = 'Loading...';
+    }
+    let progress = 0;
+    let finishing = false;
+    function paint() {
+      progressFill.style.width = progress + '%';
+      progressText.textContent = progress + '%';
+    }
+    const loadingInterval = setInterval(function () {
+      if (finishing || progress >= 92) {
+        return;
+      }
+      progress += Math.floor(Math.random() * 6) + 2;
+      if (progress > 92) {
+        progress = 92;
+      }
+      paint();
+    }, 50);
+    window.finishAppLoading = function (done) {
+      if (finishing) {
+        return;
+      }
+      finishing = true;
+      clearInterval(loadingInterval);
+      progress = 100;
+      paint();
+      setTimeout(function () {
+        preloader.classList.add('fade-out');
+        setTimeout(done, 980);
+      }, 300);
+    };
+  })();
+</script>
 <div id="app"></div>
 <script type="module" src="/src/main.js"></script>
 </body>

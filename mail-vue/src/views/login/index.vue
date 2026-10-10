@@ -769,7 +769,8 @@ function submitRegister() {
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: login-card-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -997,6 +998,27 @@ html.dark .container {
   height: 100%;
   z-index: 2;
   pointer-events: none;
+  animation: wind-in 1.1s ease 0.35s both;
+}
+
+@keyframes login-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes wind-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 html.dark .login-veil {
