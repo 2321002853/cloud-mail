@@ -1,16 +1,16 @@
 <template>
-  <div id="login-box" :style=" background ? 'background: var(--el-bg-color)' : ''" v-loading="oauthLoading" element-loading-text="登录中...">
-    <div id="background-wrap" v-if="!settingStore.settings.background">
-      <div class="x1 cloud"></div>
-      <div class="x2 cloud"></div>
-      <div class="x3 cloud"></div>
-      <div class="x4 cloud"></div>
-      <div class="x5 cloud"></div>
-    </div>
-    <div v-else :style="background"></div>
+  <div id="login-box" v-loading="oauthLoading" element-loading-text="登录中...">
+    <div class="login-photo" :style="background"></div>
+    <div class="login-veil"></div>
+    <canvas ref="windCanvas" class="wind-canvas"></canvas>
     <div class="form-wrapper">
       <div class="container">
-        <span class="form-title">{{ settingStore.settings.title }}</span>
+        <div class="title-row">
+          <span class="mark">
+            <Icon icon="mingcute:mail-fill" width="22" height="22"/>
+          </span>
+          <span class="form-title">{{ settingStore.settings.title }}</span>
+        </div>
         <span class="form-desc" v-if="show === 'login'">{{ $t('loginTitle') }}</span>
         <span class="form-desc" v-else>{{ $t('regTitle') }}</span>
         <div v-show="show === 'login'">
@@ -32,7 +32,7 @@
                       :value="item"
                   />
                 </el-select>
-                <div style="color: var(--el-text-color-primary)">
+                <div class="suffix-label">
                   <span>{{ suffix }}</span>
                   <Icon class="setting-icon" icon="mingcute:down-small-fill" width="20" height="20"/>
                 </div>
@@ -150,7 +150,7 @@
 <script setup>
 import router from "@/router";
 import {useRoute} from "vue-router";
-import {computed, nextTick, reactive, ref} from "vue";
+import {computed, nextTick, onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import {login} from "@/request/login.js";
 import {register} from "@/request/login.js";
 import {websiteConfig} from "@/request/setting.js";
@@ -165,6 +165,112 @@ import {loginUserInfo} from "@/request/my.js";
 import {permsToRouter} from "@/perm/perm.js";
 import {useI18n} from "vue-i18n";
 import {oauthBindUser, oauthLinuxDoLogin, oauthGithubLogin, oauthGoogleLogin} from "@/request/ouath.js";
+
+const windCanvas = ref(null)
+let windFrame = 0
+let onWindResize = null
+
+onMounted(() => {
+  const canvas = windCanvas.value
+  if (!canvas) return
+  const ctx = canvas.getContext('2d')
+  let width = 0
+  let height = 0
+
+  function resize() {
+    width = canvas.width = window.innerWidth
+    height = canvas.height = window.innerHeight
+  }
+
+  onWindResize = resize
+  window.addEventListener('resize', resize)
+  resize()
+
+  const windLines = []
+  const lineCount = 10
+  for (let i = 0; i < lineCount; i++) {
+    windLines.push({
+      x: Math.random() * width,
+      y: (height / lineCount) * i + Math.random() * 40,
+      length: 180 + Math.random() * 120,
+      speed: 1.2 + Math.random() * 0.8,
+      amplitude: 10 + Math.random() * 15,
+      frequency: 0.008,
+      offset: Math.random() * 100
+    })
+  }
+
+  const particles = []
+  const particleCount = 30
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.5 + 0.5,
+      speed: 0.8 + Math.random() * 1.0,
+      opacity: Math.random() * 0.4 + 0.2
+    })
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height)
+
+    windLines.forEach(line => {
+      line.x += line.speed
+      if (line.x > width + line.length) {
+        line.x = -line.length
+        line.y = Math.random() * height
+      }
+
+      ctx.save()
+      ctx.beginPath()
+      for (let px = 0; px <= line.length; px += 2) {
+        const currentX = line.x + px
+        const currentY = line.y + Math.sin((currentX + line.offset) * line.frequency) * line.amplitude
+        if (px === 0) {
+          ctx.moveTo(currentX, currentY)
+        } else {
+          ctx.lineTo(currentX, currentY)
+        }
+      }
+
+      const gradient = ctx.createLinearGradient(line.x, line.y, line.x + line.length, line.y)
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 0)')
+      gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.25)')
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
+      ctx.strokeStyle = gradient
+      ctx.lineWidth = 1.2
+      ctx.stroke()
+      ctx.restore()
+    })
+
+    particles.forEach(p => {
+      p.x += p.speed
+      if (p.x > width) {
+        p.x = 0
+        p.y = Math.random() * height
+      }
+
+      ctx.save()
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`
+      ctx.shadowBlur = 4
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.6)'
+      ctx.fill()
+      ctx.restore()
+    })
+
+    windFrame = requestAnimationFrame(animate)
+  }
+
+  animate()
+})
+
+onBeforeUnmount(() => {
+  if (windFrame) cancelAnimationFrame(windFrame)
+  if (onWindResize) window.removeEventListener('resize', onWindResize)
+})
 
 const {t} = useI18n();
 const accountStore = useAccountStore();
@@ -215,7 +321,7 @@ const registerForm = reactive({
   confirmPassword: '',
   code: null
 })
-const domainList = settingStore.domainList;
+const domainList = settingStore.domainList
 const registerLoading = ref(false)
 suffix.value = domainList[0]
 const verifyShow = ref(false)
@@ -253,21 +359,16 @@ window.loadBefore = (e) => {
   console.log('loadBefore')
 }
 
-const loginOpacity = computed(() => {
-  const opacity = settingStore.settings.loginOpacity
-  return uiStore.dark ? `rgba(0, 0, 0, ${opacity})` : `rgba(255, 255, 255, ${opacity})`
-})
-
 const hideLoginDomain = computed(() => settingStore.settings.loginDomain === 1)
 
 const background = computed(() => {
-
-  return settingStore.settings.background ? {
-    'background-image': `url(${cvtR2Url(settingStore.settings.background)})`,
-    'background-repeat': 'no-repeat',
-    'background-size': 'cover',
-    'background-position': 'center'
-  } : ''
+  const configured = settingStore.settings.background
+  if (!configured) {
+    return {}
+  }
+  return {
+    backgroundImage: `url("${cvtR2Url(configured)}")`,
+  }
 })
 
 const openSelect = () => {
@@ -630,90 +731,180 @@ function submitRegister() {
 <style lang="scss" scoped>
 
 .form-wrapper {
-  position: fixed;
-  right: 0;
-  height: 100%;
+  position: relative;
   z-index: 10;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  @media (max-width: 767px) {
-    width: 100%;
+  justify-content: flex-end;
+  padding: 28px 7vw 28px 28px;
+  box-sizing: border-box;
+  @media (max-width: 860px) {
+    justify-content: center;
+    padding: 20px 16px;
   }
 }
 
 .container {
-  background: v-bind(loginOpacity);
-  padding-left: 40px;
-  padding-right: 40px;
+  --login-field: rgba(156, 214, 202, 0.46);
+  --login-field-line: rgba(16, 88, 80, 0.22);
+  --el-input-bg-color: var(--login-field);
+  --el-fill-color-blank: var(--login-field);
+  --el-fill-color-light: var(--login-field);
+  --el-input-border-color: var(--login-field-line);
+  --el-input-hover-border-color: rgba(15, 127, 118, 0.45);
+  --el-input-focus-border-color: #14988f;
+  --el-input-text-color: #143833;
+  --el-input-placeholder-color: #5f7d78;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 36px;
+  box-sizing: border-box;
+  color: #143833;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 450px;
-  height: 100%;
-  border-left: 1px solid var(--login-border);
-  box-shadow: var(--el-box-shadow-light);
-  @media (max-width: 1024px) {
-    padding: 20px 18px;
-    width: 384px;
-    margin-left: 18px;
-  }
-  @media (max-width: 767px) {
-    border: 1px solid var(--login-border);
-    padding: 20px 18px;
-    border-radius: 6px;
-    height: fit-content;
-    width: 100%;
-    margin-right: 18px;
-    margin-left: 18px;
+  max-height: calc(100% - 8px);
+  overflow: auto;
+  @media (max-width: 860px) {
+    padding: 28px 20px 22px;
   }
 
   .btn {
-    height: 36px;
+    height: 40px;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 12px;
+    margin-top: 2px;
+  }
+
+  :deep(.el-button--primary) {
+    --el-button-text-color: #143833;
+    --el-button-bg-color: rgba(156, 214, 202, 0.62);
+    --el-button-border-color: rgba(16, 88, 80, 0.2);
+    --el-button-hover-text-color: #0f2c29;
+    --el-button-hover-bg-color: rgba(156, 214, 202, 0.84);
+    --el-button-hover-border-color: rgba(15, 127, 118, 0.32);
+    --el-button-active-text-color: #0f2c29;
+    --el-button-active-bg-color: rgba(126, 186, 176, 0.9);
+    --el-button-active-border-color: rgba(15, 127, 118, 0.4);
+    --el-button-disabled-text-color: rgba(20, 56, 51, 0.55);
+    --el-button-disabled-bg-color: rgba(156, 214, 202, 0.35);
+    --el-button-disabled-border-color: rgba(16, 88, 80, 0.12);
+    border: 1px solid var(--el-button-border-color);
+    box-shadow: none;
+    font-weight: 600;
   }
 
   .form-desc {
-    margin-top: 5px;
-    margin-bottom: 18px;
-    color: var(--form-desc-color);
+    margin-top: 8px;
+    margin-bottom: 22px;
+    color: #3d5c58;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f7f76;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
   }
 
   .form-title {
-    font-weight: bold;
-    font-size: 22px !important;
+    font-weight: 700;
+    font-size: 26px !important;
+    letter-spacing: 0.01em;
+    color: #143833;
   }
 
   .switch {
-    margin-top: 20px;
+    margin-top: 18px;
     text-align: center;
+    color: #3d5c58;
+    font-size: 13px;
 
     span {
-      color: var(--login-switch-color);
+      color: #0c7a72;
       cursor: pointer;
+      font-weight: 600;
     }
+  }
+
+  :deep(.el-input__wrapper),
+  :deep(.el-input-group__append) {
+    background-color: var(--login-field) !important;
+    box-shadow: none !important;
+    color: var(--el-input-text-color);
   }
 
   :deep(.el-input__wrapper) {
-    border-radius: 6px;
-    background: var(--el-bg-color);
+    border-radius: 12px;
   }
 
   .email-input :deep(.el-input__wrapper) {
-    border-radius: 6px 0 0 6px;
-    background: var(--el-bg-color);
+    border-radius: 12px 0 0 12px;
+  }
+
+  .email-input :deep(.el-input-group__append) {
+    border-radius: 0 12px 12px 0;
+    border-left: 1px solid var(--login-field-line);
+    min-width: 124px;
+    justify-content: center;
+    color: #143833;
+  }
+
+  .suffix-label {
+    color: #143833;
   }
 
   .el-input {
-    height: 38px;
+    height: 40px;
     width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    background: var(--login-field);
+    box-shadow: 0 0 0 1px var(--login-field-line);
+    overflow: hidden;
 
     :deep(.el-input__inner) {
-      height: 36px;
+      height: 38px;
+      color: #143833;
+    }
+
+    :deep(.el-input__inner::placeholder) {
+      color: #5f7d78;
     }
   }
+
+  .el-input:focus-within {
+    box-shadow: 0 0 0 1px #14988f;
+  }
+}
+
+html.dark .container {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 :deep(.el-select-dropdown__item) {
@@ -741,11 +932,9 @@ function submitRegister() {
 }
 
 :deep(.el-input-group__append) {
-  padding: 0 !important;
-  padding-left: 8px !important;
-  padding-right: 4px !important;
-  background: var(--el-bg-color);
-  border-radius: 0 8px 8px 0;
+  padding: 0 8px !important;
+  background-color: var(--login-field) !important;
+  box-shadow: none !important;
 }
 
 :deep(.el-button+.el-button) {
@@ -753,7 +942,7 @@ function submitRegister() {
 }
 
 .register-turnstile {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .select {
@@ -776,88 +965,43 @@ function submitRegister() {
 
 
 #login-box {
-  background: linear-gradient(to bottom, #2980b9, #6dd5fa, #fff);
-  font: 100% Arial, sans-serif;
+  position: relative;
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
-  display: grid;
-  grid-template-columns: 1fr;
+  overflow: hidden;
+  background: #12343a;
 }
 
-
-#background-wrap {
-  height: 100%;
-  z-index: 0;
-}
-
-@keyframes animateCloud {
-  0% {
-    margin-left: -500px;
-  }
-
-  100% {
-    margin-left: 100%;
-  }
-}
-
-.x1 {
-  animation: animateCloud 30s linear infinite;
-  transform: scale(0.65);
-}
-
-.x2 {
-  animation: animateCloud 15s linear infinite;
-  transform: scale(0.3);
-}
-
-.x3 {
-  animation: animateCloud 25s linear infinite;
-  transform: scale(0.5);
-}
-
-.x4 {
-  animation: animateCloud 13s linear infinite;
-  transform: scale(0.4);
-}
-
-.x5 {
-  animation: animateCloud 20s linear infinite;
-  transform: scale(0.55);
-}
-
-.cloud {
-  background: linear-gradient(to bottom, #fff 5%, #f1f1f1 100%);
-  border-radius: 100px;
-  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
-  height: 120px;
-  width: 350px;
-  position: relative;
-}
-
-.cloud:after,
-.cloud:before {
-  content: "";
+.login-photo {
   position: absolute;
-  background: #fff;
-  z-index: -1;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
 }
 
-.cloud:after {
-  border-radius: 100px;
-  height: 100px;
-  left: 50px;
-  top: -50px;
-  width: 100px;
+.login-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.16);
 }
 
-.cloud:before {
-  border-radius: 200px;
-  height: 180px;
-  width: 180px;
-  right: 50px;
-  top: -90px;
+.wind-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+html.dark .login-veil {
+  background:
+    linear-gradient(100deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.22) 48%, rgba(0, 0, 0, 0.34) 100%);
 }
 
 </style>
