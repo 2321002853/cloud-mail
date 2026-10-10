@@ -76,6 +76,16 @@ body:has(.mail-workspace) .mail-workspace .el-aside {
     border-right: 1px solid rgba(255, 255, 255, 0.38);
 }
 
+/* 手机端侧栏盖在页面上，亮色太透会和后面的内容叠在一起 */
+@media (max-width: 1025px) {
+    body:has(.mail-workspace) .mail-workspace .aside.aside-show,
+    body:has(.mail-workspace) .mail-workspace .el-aside.aside-show {
+        background: rgba(232, 248, 244, 0.96) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.72);
+        box-shadow: 10px 0 28px rgba(40, 90, 80, 0.16);
+    }
+}
+
 body:has(.mail-workspace) .mail-workspace .el-header {
     background: rgba(255, 255, 255, 0.22) !important;
     border-bottom-color: rgba(255, 255, 255, 0.45) !important;
