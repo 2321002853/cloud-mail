@@ -76,13 +76,15 @@ body:has(.mail-workspace) .mail-workspace .el-aside {
     border-right: 1px solid rgba(255, 255, 255, 0.38);
 }
 
-/* 手机端侧栏盖在页面上，亮色太透会和后面的内容叠在一起 */
+/* 手机端侧栏盖在页面上：模糊后面的内容，底色只稍微加深，文字就能分开 */
 @media (max-width: 1025px) {
     body:has(.mail-workspace) .mail-workspace .aside.aside-show,
     body:has(.mail-workspace) .mail-workspace .el-aside.aside-show {
-        background: rgba(232, 248, 244, 0.96) !important;
-        border-right: 1px solid rgba(255, 255, 255, 0.72);
-        box-shadow: 10px 0 28px rgba(40, 90, 80, 0.16);
+        background: rgba(232, 248, 244, 0.58) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.55);
+        box-shadow: 8px 0 20px rgba(40, 90, 80, 0.1);
+        backdrop-filter: blur(28px) saturate(1.35);
+        -webkit-backdrop-filter: blur(28px) saturate(1.35);
     }
 }
 
@@ -336,6 +338,17 @@ html.dark body:has(.mail-workspace) .mail-workspace .header-actions {
     background: rgba(8, 22, 26, 0.55) !important;
     color: #d7eeea;
     border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+@media (max-width: 1025px) {
+    html.dark body:has(.mail-workspace) .mail-workspace .aside.aside-show,
+    html.dark body:has(.mail-workspace) .mail-workspace .el-aside.aside-show {
+        background: rgba(10, 28, 32, 0.58) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 8px 0 20px rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(28px) saturate(1.25);
+        -webkit-backdrop-filter: blur(28px) saturate(1.25);
+    }
 }
 
 html.dark body:has(.mail-workspace) .mail-workspace .aside .title {
