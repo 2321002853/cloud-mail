@@ -72,6 +72,34 @@ function clearEditor() {
   }
 }
 
+function editorContentStyle() {
+  const dark = uiStore.dark
+  const color = dark ? '#e7f6f3' : '#1d3b3a'
+  const link = dark ? '#7ee0d0' : '#0c7a72'
+  const quote = dark ? '#c5ddd8' : '#3d5c59'
+  const quoteBg = dark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.55)'
+  const track = dark ? '#10282c' : '#e7f6ef'
+  const thumb = dark ? '#5d8a84' : '#8fb3ad'
+  const paper = dark ? '#143238' : '#f3faf7'
+  return `:root {
+         --scrollbar-track-color: ${track};
+         --scrollbar-thumb-color: ${thumb};
+    }
+    html, body, .mce-content-body {
+         background: ${paper} !important;
+         background-image: none !important;
+         color: ${color};
+         min-height: 100%;
+    }
+    a {
+         color: ${link};
+    }
+    .mceNonEditable {
+         color: ${quote};
+         background: ${quoteBg};
+    }`
+}
+
 function initTinyMCE() {
   if (window.tinymce) {
     initEditor();
@@ -96,10 +124,7 @@ function initEditor() {
     forced_root_block: 'div',
     skin: `${uiStore.dark ? 'oxide-dark' : 'oxide'}`,
     content_css: `/tinymce/css/index.css,${uiStore.dark ? 'dark' : 'default'}`,
-    content_style: `:root {
-         --scrollbar-track-color: ${uiStore.dark ? '#141414' : '#FFFFFF'};
-         --scrollbar-thumb-color: ${uiStore.dark ? '#8D9095' : '#A8ABB2'};
-    }`,
+    content_style: editorContentStyle(),
     plugins: 'link image advlist lists  emoticons fullscreen  table preview code',
     toolbar: 'bold emoticons forecolor backcolor italic fontsize | alignleft aligncenter alignright alignjustify | outdent indent |  bullist numlist | link image  | table code preview fullscreen',
     toolbar_mode: 'scrolling',

@@ -1,5 +1,6 @@
 <template>
   <el-container class="layout mail-workspace">
+    <BloomBg />
     <el-aside
         class="aside"
         :class="uiStore.asideShow ? 'aside-show' : 'el-aside-hide'">
@@ -25,6 +26,7 @@
 import Aside from '@/layout/aside/index.vue'
 import Header from '@/layout/header/index.vue'
 import Main from '@/layout/main/index.vue'
+import BloomBg from '@/components/bloom-bg/index.vue'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import {useUiStore} from "@/store/ui.js";
 import writer from '@/layout/write/index.vue'
@@ -61,6 +63,7 @@ onBeforeUnmount(() => {
 }
 
 .aside-show {
+  position: relative;
   -webkit-box-shadow: var(--aside-right-border);
   box-shadow: var(--aside-right-border);
   transform: translateX(0);
@@ -91,6 +94,8 @@ onBeforeUnmount(() => {
 }
 
 .main-container {
+  position: relative;
+  z-index: 1;
   min-height: 100%;
   background: var(--el-bg-color);
   overflow-y: auto;

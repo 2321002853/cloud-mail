@@ -1,235 +1,428 @@
-/* Keep workspace themes local to the authenticated workspace. */
-html:not(.dark) .mail-workspace {
-    --el-color-primary: #087f78;
-    --el-color-primary-dark-2: #06665f;
-    --el-color-primary-light-3: #529f99;
-    --el-color-primary-light-5: #84bfba;
-    --el-color-primary-light-7: #b5d9d6;
-    --el-color-primary-light-8: #cee6e3;
-    --el-color-primary-light-9: #e9f4f2;
-    --el-bg-color: #ffffff;
-    --el-bg-color-page: #f3f5f7;
-    --el-bg-color-overlay: #ffffff;
-    --el-text-color-primary: #28363e;
-    --el-text-color-regular: #52616b;
-    --el-text-color-secondary: #74838c;
-    --el-border-color: #d6dfe3;
-    --el-border-color-light: #e1e7ea;
-    --el-border-color-lighter: #edf0f2;
-    --el-fill-color: #edf1f3;
-    --el-fill-color-light: #f3f6f7;
-    --el-fill-color-lighter: #f8fafb;
-    --extra-light-fill: #f4f7f8;
-    --settings-page-background: #f4f6f8;
-    --aside-backgound: #f0f3f5;
-    --aside-menu-active-background: #e1eeeb;
-    --aside-right-border: inset -1px 0 rgba(77, 99, 111, 0.12);
-    --header-actions-border: inset 0 -1px rgba(77, 99, 111, 0.1);
-    --choose-account-background: #eaf4f1;
-    --email-scroll-content-color: #7a8790;
-    --email-hover-background: #f1f7f6;
-    --email-right-click-background: #e5f0ee;
-    --dark-border: #cbd7dd;
-    --base-fill: #edf1f3;
-    --regular-text-color: #52616b;
-    --light-border-color: #e1e7ea;
-    --base-border-color: #d6dfe3;
-    --secondary-text-color: #74838c;
-    --form-desc-color: #74838c;
+/* 登录页没有 .mail-workspace，下面的规则不会作用到登录页。只改颜色和透明度。 */
+
+body:has(.mail-workspace) {
+    --el-color-primary: #1aa39a;
+    --el-color-primary-dark-2: #0f7d76;
+    --el-color-primary-light-3: #5ec4ba;
+    --el-color-primary-light-5: #8fd8d0;
+    --el-color-primary-light-7: #c5eee8;
+    --el-color-primary-light-8: #daf6f1;
+    --el-color-primary-light-9: #eefaf7;
+    --el-color-danger: #d08a3a;
+    --el-color-danger-light-3: #e2b072;
+    --el-color-danger-light-5: #ecc69a;
+    --el-color-danger-light-7: #f6e0c6;
+    --el-color-danger-light-8: #faecda;
+    --el-color-danger-light-9: #fdf6ee;
+    --el-bg-color: rgba(255, 255, 255, 0.28);
+    --el-bg-color-page: transparent;
+    --el-bg-color-overlay: rgba(255, 255, 255, 0.4);
+    --el-dialog-bg-color: rgba(255, 255, 255, 0.36);
+    --el-text-color-primary: #1d3b3a;
+    --el-text-color-regular: #3d5c59;
+    --el-text-color-secondary: #5d7a76;
+    --el-text-color-placeholder: #7d9793;
+    --el-border-color: rgba(255, 255, 255, 0.55);
+    --el-border-color-light: rgba(255, 255, 255, 0.42);
+    --el-border-color-lighter: rgba(255, 255, 255, 0.28);
+    --el-fill-color: rgba(255, 255, 255, 0.32);
+    --el-fill-color-light: rgba(255, 255, 255, 0.24);
+    --el-fill-color-lighter: rgba(255, 255, 255, 0.16);
+    --el-fill-color-blank: rgba(255, 255, 255, 0.34);
+    --el-mask-color: rgba(186, 224, 214, 0.28);
+    --el-box-shadow-light: 0 10px 28px rgba(42, 92, 84, 0.08);
+    --extra-light-fill: rgba(255, 255, 255, 0.28);
+    --settings-page-background: transparent;
+    --aside-backgound: transparent;
+    --aside-menu-active-background: rgba(154, 230, 206, 0.55);
+    --aside-right-border: inset -1px 0 rgba(255, 255, 255, 0.35);
+    --header-actions-border: inset 0 -1px rgba(255, 255, 255, 0.4);
+    --choose-account-background: rgba(168, 232, 210, 0.55);
+    --email-scroll-content-color: #4f6d69;
+    --email-hover-background: rgba(255, 255, 255, 0.42);
+    --email-right-click-background: rgba(214, 244, 196, 0.55);
+    --dark-border: rgba(255, 255, 255, 0.55);
+    --base-fill: rgba(255, 255, 255, 0.3);
+    --regular-text-color: #3d5c59;
+    --light-border-color: rgba(255, 255, 255, 0.4);
+    --base-border-color: rgba(255, 255, 255, 0.5);
+    --secondary-text-color: #5d7a76;
+    --form-desc-color: #5d7a76;
+    --loadding-background: rgba(255, 255, 255, 0.35);
+    --light-ill: rgba(255, 255, 255, 0.28);
+    --light-border: rgba(255, 255, 255, 0.4);
+    --mail-body-color: #1d3b3a;
+    --mail-body-link: #0c7a72;
+    --mail-editor-bg: #f3faf7;
+    --mail-editor-bar: rgba(255, 255, 255, 0.28);
+    --mail-editor-line: rgba(255, 255, 255, 0.55);
+    background: #e4f6f4 !important;
 }
 
-html:not(.dark) .mail-workspace .aside .title {
-    color: #176c66;
-    background: #e2eeeb;
-    box-shadow: inset 0 0 0 1px rgba(8, 127, 120, 0.12);
+body:has(.mail-workspace) .mail-workspace,
+body:has(.mail-workspace) .mail-workspace .main-container,
+body:has(.mail-workspace) .mail-workspace .el-main,
+body:has(.mail-workspace) .mail-workspace .main-view,
+body:has(.mail-workspace) .mail-workspace .el-scrollbar__wrap,
+body:has(.mail-workspace) .mail-workspace .el-menu,
+body:has(.mail-workspace) .mail-workspace .el-menu-item {
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
-html:not(.dark) .mail-workspace .aside .el-menu-item {
-    color: #64737d;
+body:has(.mail-workspace) .mail-workspace .aside,
+body:has(.mail-workspace) .mail-workspace .el-aside {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.38);
 }
 
-html:not(.dark) .mail-workspace .aside .el-menu-item.choose-item {
-    color: #086f68;
-    box-shadow: inset 3px 0 #278e84, inset 0 0 0 1px rgba(8, 127, 120, 0.08);
+body:has(.mail-workspace) .mail-workspace .el-header {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.45) !important;
+    box-shadow: none;
 }
 
-html:not(.dark) .mail-workspace .aside .manage-title {
-    color: #8a959d;
+body:has(.mail-workspace) .mail-workspace .account-box {
+    background: rgba(255, 255, 255, 0.14) !important;
 }
 
-html:not(.dark) .mail-workspace .el-header {
-    background: rgba(255, 255, 255, 0.96);
-    border-bottom-color: #e1e7ea;
-    box-shadow: 0 2px 8px rgba(40, 54, 62, 0.035);
+body:has(.mail-workspace) .mail-workspace .header-actions {
+    background: rgba(255, 255, 255, 0.3);
+    color: #2d524e;
 }
 
-html:not(.dark) .mail-workspace .header .writer {
-    background: #087f78;
-    box-shadow: 0 2px 6px rgba(8, 127, 120, 0.16);
+body:has(.mail-workspace) .mail-workspace .aside .title {
+    color: #0f6d64;
+    background: rgba(186, 236, 214, 0.55);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
 }
 
-html:not(.dark) .mail-workspace .header .avatar-text {
-    color: #756494;
-    background: #f0edf5;
-    border-color: #ded7e8;
+body:has(.mail-workspace) .mail-workspace .aside .el-menu-item,
+body:has(.mail-workspace) .mail-workspace .aside .manage-title {
+    color: #3c5e5a !important;
 }
 
-html:not(.dark) .mail-workspace .account-box {
-    background: #f4f6f8;
+body:has(.mail-workspace) .mail-workspace .aside .el-menu-item.choose-item {
+    color: #0c6a62 !important;
+    background: rgba(154, 230, 206, 0.5) !important;
+    box-shadow: inset 3px 0 #3cbfa4, inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
-html:not(.dark) .mail-workspace .account-box .item {
-    border-color: #e1e7ea;
-    box-shadow: 0 2px 6px rgba(40, 54, 62, 0.035);
+body:has(.mail-workspace) .mail-workspace .header .writer {
+    color: #08332f;
+    background: rgba(122, 220, 196, 0.72);
+    box-shadow: 0 2px 8px rgba(40, 120, 100, 0.12);
 }
 
-html:not(.dark) .mail-workspace .account-box .item.item-choose {
-    border-color: #bedbd3;
-    box-shadow: inset 3px 0 #278e84;
+body:has(.mail-workspace) .mail-workspace .header .avatar-text,
+body:has(.mail-workspace) .mail-workspace .details-avatar {
+    color: #2f6f68;
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
-html:not(.dark) .mail-workspace .header-actions {
-    background: #f8fafb;
-    color: #687982;
+body:has(.mail-workspace) .mail-workspace .account-box .item,
+body:has(.mail-workspace) .mail-workspace .el-card,
+body:has(.mail-workspace) .mail-workspace .settings-card {
+    background: rgba(255, 255, 255, 0.24) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 2px 8px rgba(40, 90, 80, 0.05);
 }
 
-html:not(.dark) .mail-workspace .email-row[data-checked="true"] {
-    background: #e4f1ed;
+body:has(.mail-workspace) .mail-workspace .account-box .item.item-choose {
+    background: rgba(168, 232, 210, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.7) !important;
+    box-shadow: inset 3px 0 #3cbfa4;
 }
 
-html:not(.dark) .mail-workspace .settings-card {
-    border-color: #e1e7ea;
-    box-shadow: 0 2px 8px rgba(40, 54, 62, 0.035);
+body:has(.mail-workspace) .mail-workspace .email-row {
+    background: rgba(255, 255, 255, 0.14);
 }
 
-html:not(.dark) .mail-workspace .card-title {
-    border-bottom-color: #edf0f2;
+body:has(.mail-workspace) .mail-workspace .email-row[data-checked="true"] {
+    background: rgba(168, 226, 206, 0.48);
 }
 
-@media (hover: hover) {
-    html:not(.dark) .mail-workspace .aside .el-menu-item:hover {
-        background: rgba(8, 127, 120, 0.06) !important;
-    }
-
-    html:not(.dark) .mail-workspace .account-box .item:hover {
-        border-color: #bedbd3;
-    }
+body:has(.mail-workspace) .mail-workspace .card-title {
+    border-bottom-color: rgba(255, 255, 255, 0.4);
 }
 
-html.dark .mail-workspace {
-    --el-color-primary: #51bdb0;
-    --el-color-primary-dark-2: #78cec3;
-    --el-color-primary-light-3: #3d8d84;
-    --el-color-primary-light-5: #315f5c;
-    --el-color-primary-light-7: #284642;
-    --el-color-primary-light-8: #233a37;
-    --el-color-primary-light-9: #202f2d;
-    --el-bg-color: #202224;
-    --el-bg-color-page: #191b1d;
-    --el-bg-color-overlay: #26292b;
-    --el-text-color-primary: #e0e5e5;
-    --el-text-color-regular: #bdc6c6;
-    --el-text-color-secondary: #929fa0;
-    --el-border-color: #3b4243;
-    --el-border-color-light: #33393b;
-    --el-border-color-lighter: #2c3233;
-    --el-fill-color: #2e3335;
-    --el-fill-color-light: #272c2e;
-    --el-fill-color-lighter: #24282a;
-    --extra-light-fill: #202224;
-    --settings-page-background: #191b1d;
-    --aside-backgound: #191d1e;
-    --aside-menu-active-background: #253b37;
-    --aside-right-border: inset -1px 0 rgba(174, 195, 191, 0.1);
-    --header-actions-border: inset 0 -1px rgba(174, 195, 191, 0.1);
-    --choose-account-background: #253632;
-    --email-scroll-content-color: #929fa0;
-    --email-hover-background: #252f2d;
-    --email-right-click-background: #2a3935;
-    --dark-border: #485453;
-    --base-fill: #2e3335;
-    --regular-text-color: #bdc6c6;
-    --light-border-color: #33393b;
-    --base-border-color: #3b4243;
-    --secondary-text-color: #929fa0;
-    --form-desc-color: #929fa0;
+body:has(.mail-workspace) .mail-workspace .el-table,
+body:has(.mail-workspace) .mail-workspace .el-table tr,
+body:has(.mail-workspace) .mail-workspace .el-table th.el-table__cell,
+body:has(.mail-workspace) .mail-workspace .el-table td.el-table__cell {
+    background: rgba(255, 255, 255, 0.28) !important;
+    color: #1d3b3a;
 }
 
-html.dark .mail-workspace .aside .title {
-    color: #86d5c8;
-    background: #253632;
-    box-shadow: inset 0 0 0 1px rgba(81, 189, 176, 0.16);
-}
-
-html.dark .mail-workspace .aside .el-menu-item {
-    color: #a4b2b1;
-}
-
-html.dark .mail-workspace .aside .el-menu-item.choose-item {
-    color: #86d5c8;
-    box-shadow: inset 3px 0 #51bdb0, inset 0 0 0 1px rgba(81, 189, 176, 0.1);
-}
-
-html.dark .mail-workspace .aside .manage-title {
-    color: #859392;
-}
-
-html.dark .mail-workspace .el-header {
-    background: rgba(32, 34, 36, 0.96);
-    border-bottom-color: #33393b;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-}
-
-html.dark .mail-workspace .header .writer {
-    color: #122b27;
-    background: #51bdb0;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
-}
-
-html.dark .mail-workspace .header .avatar-text {
-    color: #c0b0db;
-    background: #322d3c;
-    border-color: #494053;
-}
-
-html.dark .mail-workspace .account-box {
-    background: #1c1f21;
-}
-
-html.dark .mail-workspace .account-box .item {
-    border-color: #33393b;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-html.dark .mail-workspace .account-box .item.item-choose {
-    border-color: #41635a;
-    box-shadow: inset 3px 0 #51bdb0;
-}
-
-html.dark .mail-workspace .header-actions {
-    background: #232729;
-    color: #a4b2b1;
-}
-
-html.dark .mail-workspace .email-row[data-checked="true"] {
-    background: #293c35;
-}
-
-html.dark .mail-workspace .settings-card {
-    border-color: #33393b;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-html.dark .mail-workspace .card-title {
-    border-bottom-color: #2c3233;
+body:has(.mail-workspace) .mail-workspace .el-input__wrapper,
+body:has(.mail-workspace) .mail-workspace .el-select__wrapper,
+body:has(.mail-workspace) .mail-workspace .el-textarea__inner {
+    background: rgba(255, 255, 255, 0.38) !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5) inset !important;
 }
 
 @media (hover: hover) {
-    html.dark .mail-workspace .aside .el-menu-item:hover {
-        background: rgba(81, 189, 176, 0.08) !important;
+    body:has(.mail-workspace) .mail-workspace .aside .el-menu-item:hover {
+        background: rgba(255, 255, 255, 0.28) !important;
     }
 
-    html.dark .mail-workspace .account-box .item:hover {
-        border-color: #41635a;
+    body:has(.mail-workspace) .mail-workspace .account-box .item:hover {
+        border-color: rgba(186, 236, 214, 0.9);
     }
+
+    body:has(.mail-workspace) .mail-workspace .email-row:hover {
+        background: rgba(255, 255, 255, 0.42);
+    }
+}
+
+/* 下拉、气泡：较轻的一层模糊 */
+body:has(.mail-workspace) .el-popper,
+body:has(.mail-workspace) .el-dropdown__popper,
+body:has(.mail-workspace) .el-select__popper,
+body:has(.mail-workspace) .el-popover.el-popper {
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(8px) saturate(1.4);
+    -webkit-backdrop-filter: blur(8px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.62) !important;
+}
+
+body:has(.mail-workspace) .el-dropdown-menu,
+body:has(.mail-workspace) .el-select-dropdown,
+body:has(.mail-workspace) .el-popover {
+    background: transparent !important;
+}
+
+body:has(.mail-workspace) .el-popper .el-popper__arrow::before {
+    background: rgba(255, 255, 255, 0.55) !important;
+    border-color: rgba(255, 255, 255, 0.62) !important;
+}
+
+/* 第一层弹窗遮罩与对话框 */
+body:has(.mail-workspace) .el-overlay {
+    background-color: rgba(176, 222, 210, 0.22) !important;
+    backdrop-filter: blur(6px) saturate(1.2);
+    -webkit-backdrop-filter: blur(6px) saturate(1.2);
+}
+
+body:has(.mail-workspace) .el-dialog,
+body:has(.mail-workspace) .write-box {
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(18px) saturate(1.45);
+    -webkit-backdrop-filter: blur(18px) saturate(1.45);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 16px 40px rgba(40, 90, 80, 0.1);
+}
+
+body:has(.mail-workspace) .send {
+    background: rgba(186, 226, 214, 0.18);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* 第二层弹窗更糊 */
+body:has(.mail-workspace) .el-overlay ~ .el-overlay {
+    background-color: rgba(160, 214, 204, 0.28) !important;
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+body:has(.mail-workspace) .el-overlay ~ .el-overlay .el-dialog,
+body:has(.mail-workspace) .el-message-box {
+    background: rgba(255, 255, 255, 0.34) !important;
+    backdrop-filter: blur(28px) saturate(1.55);
+    -webkit-backdrop-filter: blur(28px) saturate(1.55);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* 第三层再加强 */
+body:has(.mail-workspace) .el-overlay ~ .el-overlay ~ .el-overlay {
+    backdrop-filter: blur(20px) saturate(1.35);
+    -webkit-backdrop-filter: blur(20px) saturate(1.35);
+}
+
+body:has(.mail-workspace) .el-overlay ~ .el-overlay ~ .el-overlay .el-dialog,
+body:has(.mail-workspace) .el-overlay ~ .el-overlay .el-message-box {
+    backdrop-filter: blur(40px) saturate(1.6);
+    -webkit-backdrop-filter: blur(40px) saturate(1.6);
+    background: rgba(255, 255, 255, 0.28) !important;
+}
+
+body:has(.mail-workspace) .el-message,
+body:has(.mail-workspace) .el-notification {
+    background: rgba(255, 255, 255, 0.52) !important;
+    backdrop-filter: blur(12px) saturate(1.35);
+    -webkit-backdrop-filter: blur(12px) saturate(1.35);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+body:has(.mail-workspace) .el-button--primary {
+    background: rgba(26, 163, 154, 0.72) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    color: #f7fffd !important;
+}
+
+body:has(.mail-workspace) .el-button--danger {
+    background: rgba(208, 138, 58, 0.72) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+html.dark body:has(.mail-workspace) {
+    --el-color-primary: #5dcec2;
+    --el-color-primary-dark-2: #8edfd4;
+    --el-color-primary-light-3: #2f8f86;
+    --el-color-primary-light-5: #246862;
+    --el-color-primary-light-7: #1c4541;
+    --el-color-primary-light-8: #183834;
+    --el-color-primary-light-9: #142c2a;
+    --el-color-danger: #e0a15a;
+    --el-bg-color: rgba(14, 32, 36, 0.62);
+    --el-bg-color-page: transparent;
+    --el-bg-color-overlay: rgba(18, 40, 44, 0.78);
+    --el-dialog-bg-color: rgba(16, 36, 40, 0.72);
+    --el-text-color-primary: #e7f6f3;
+    --el-text-color-regular: #c5ddd8;
+    --el-text-color-secondary: #97b8b2;
+    --el-text-color-placeholder: #7f9e99;
+    --el-border-color: rgba(255, 255, 255, 0.14);
+    --el-border-color-light: rgba(255, 255, 255, 0.1);
+    --el-border-color-lighter: rgba(255, 255, 255, 0.06);
+    --el-fill-color: rgba(255, 255, 255, 0.08);
+    --el-fill-color-light: rgba(255, 255, 255, 0.06);
+    --el-fill-color-lighter: rgba(255, 255, 255, 0.04);
+    --el-fill-color-blank: rgba(10, 24, 28, 0.45);
+    --el-mask-color: rgba(4, 12, 14, 0.45);
+    --extra-light-fill: rgba(12, 28, 32, 0.7);
+    --settings-page-background: transparent;
+    --aside-backgound: transparent;
+    --aside-menu-active-background: rgba(80, 190, 168, 0.22);
+    --choose-account-background: rgba(70, 170, 150, 0.28);
+    --email-scroll-content-color: #b7d0cb;
+    --email-hover-background: rgba(255, 255, 255, 0.08);
+    --email-right-click-background: rgba(120, 170, 70, 0.22);
+    --dark-border: rgba(255, 255, 255, 0.16);
+    --base-fill: rgba(255, 255, 255, 0.08);
+    --regular-text-color: #c5ddd8;
+    --light-border-color: rgba(255, 255, 255, 0.1);
+    --base-border-color: rgba(255, 255, 255, 0.14);
+    --secondary-text-color: #97b8b2;
+    --form-desc-color: #97b8b2;
+    --loadding-background: rgba(8, 20, 24, 0.45);
+    --light-ill: rgba(255, 255, 255, 0.06);
+    --light-border: rgba(255, 255, 255, 0.1);
+    --mail-body-color: #e7f6f3;
+    --mail-body-link: #7ee0d0;
+    --mail-editor-bg: #143238;
+    --mail-editor-bar: rgba(8, 24, 28, 0.42);
+    --mail-editor-line: rgba(255, 255, 255, 0.12);
+    background: #0c1a1e !important;
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .aside,
+html.dark body:has(.mail-workspace) .mail-workspace .el-aside,
+html.dark body:has(.mail-workspace) .mail-workspace .el-header,
+html.dark body:has(.mail-workspace) .mail-workspace .account-box,
+html.dark body:has(.mail-workspace) .mail-workspace .header-actions {
+    background: rgba(8, 22, 26, 0.55) !important;
+    color: #d7eeea;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .aside .title {
+    color: #b7f3e4;
+    background: rgba(40, 120, 108, 0.45);
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .aside .el-menu-item,
+html.dark body:has(.mail-workspace) .mail-workspace .aside .manage-title {
+    color: #d5ebe7 !important;
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .aside .el-menu-item.choose-item {
+    color: #d8fff4 !important;
+    background: rgba(70, 180, 160, 0.28) !important;
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .header .writer {
+    color: #06211e;
+    background: rgba(93, 206, 194, 0.86);
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .header .avatar-text,
+html.dark body:has(.mail-workspace) .mail-workspace .details-avatar {
+    color: #d8fff6;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .account-box .item,
+html.dark body:has(.mail-workspace) .mail-workspace .el-card,
+html.dark body:has(.mail-workspace) .mail-workspace .settings-card,
+html.dark body:has(.mail-workspace) .mail-workspace .email-row,
+html.dark body:has(.mail-workspace) .mail-workspace .el-table,
+html.dark body:has(.mail-workspace) .mail-workspace .el-table tr,
+html.dark body:has(.mail-workspace) .mail-workspace .el-table th.el-table__cell,
+html.dark body:has(.mail-workspace) .mail-workspace .el-table td.el-table__cell {
+    background: rgba(16, 40, 44, 0.55) !important;
+    color: #e7f6f3;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .account-box .item.item-choose,
+html.dark body:has(.mail-workspace) .mail-workspace .email-row[data-checked="true"] {
+    background: rgba(48, 130, 116, 0.45) !important;
+}
+
+html.dark body:has(.mail-workspace) .mail-workspace .el-input__wrapper,
+html.dark body:has(.mail-workspace) .mail-workspace .el-select__wrapper,
+html.dark body:has(.mail-workspace) .mail-workspace .el-textarea__inner {
+    background: rgba(8, 22, 26, 0.55) !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset !important;
+}
+
+html.dark body:has(.mail-workspace) .el-popper,
+html.dark body:has(.mail-workspace) .el-dialog,
+html.dark body:has(.mail-workspace) .el-message-box,
+html.dark body:has(.mail-workspace) .write-box,
+html.dark body:has(.mail-workspace) .el-message,
+html.dark body:has(.mail-workspace) .el-notification {
+    background: rgba(14, 34, 38, 0.78) !important;
+    color: #e7f6f3;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark body:has(.mail-workspace) .el-overlay {
+    background-color: rgba(4, 12, 14, 0.35) !important;
+}
+
+/* 邮件正文与写信编辑区：玻璃纸，盖住 TinyMCE / 阴影容器自带的纯白底 */
+body:has(.mail-workspace) .shadow-html::after {
+    background: transparent !important;
+}
+
+body:has(.mail-workspace) .tox.tox-tinymce {
+    background: transparent !important;
+    border: 1px solid var(--mail-editor-line) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: none !important;
+}
+
+body:has(.mail-workspace) .tox:not(.tox-tinymce-inline) .tox-editor-header,
+body:has(.mail-workspace) .tox .tox-toolbar,
+body:has(.mail-workspace) .tox .tox-toolbar__primary,
+body:has(.mail-workspace) .tox .tox-toolbar-overlord {
+    background: var(--mail-editor-bar) !important;
+    background-color: var(--mail-editor-bar) !important;
+    box-shadow: none !important;
+    border-color: var(--mail-editor-line) !important;
+}
+
+body:has(.mail-workspace) .tox .tox-edit-area {
+    background: var(--mail-editor-bg) !important;
+}
+
+body:has(.mail-workspace) .tox .tox-edit-area__iframe {
+    background: transparent !important;
+    background-color: transparent !important;
 }

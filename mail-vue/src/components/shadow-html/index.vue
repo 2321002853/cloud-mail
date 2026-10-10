@@ -40,7 +40,7 @@ function updateContent() {
                     'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
         font-size: 14px;
         line-height: 1.5;
-        color: #13181D;
+        color: var(--mail-body-color, #1d3b3a);
         word-break: break-word;
       }
 
@@ -55,15 +55,16 @@ function updateContent() {
 
       a {
         text-decoration: none;
-        color: #0E70DF;
+        color: var(--mail-body-link, #0c7a72);
       }
 
       .shadow-content {
-        background: #FFFFFF;
+        color: var(--mail-body-color, #1d3b3a);
         width: fit-content;
         height: fit-content;
         min-width: 100%;
         ${bodyStyle ? bodyStyle : ''} /* 注入 body 的 style */
+        background: transparent;
       }
 
       img:not(table img) {

@@ -469,6 +469,8 @@ const handleDelete = () => {
   white-space: pre-wrap;
   word-break: break-word;
   margin: 0;
+  color: var(--mail-body-color, inherit);
+  background: transparent;
 }
 
 .bottom-distance {
